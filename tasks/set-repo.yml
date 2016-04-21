@@ -4,11 +4,13 @@
   file: path=/etc/yum.repos.d/{{ item }} state=absent
   with_items: "{{ repos }}"
 
-- name: Get delorean repo
-  sudo: yes
-  get_url: url={{ item }} dest={{ yum_repo_path }}
-  with_items: "{{ repos_url }}"
+- name: Create pre upgrade overcloud script
+  template:
+    src: "{{ upgrade_repo_script }}"
+    dest: "{{ upgrade_working_dir }}/delorean-repo.sh"
+    mode: 0744
 
+  when: step_pre_upgrade
 - name: Clean yum cache
   sudo: yes
   shell: yum clean all

@@ -16,9 +16,13 @@ repos_url:
 # upgrade settings:
 upgrade_working_dir: /home/stack
 tht_dir: tripleo-heat-templates
+
+# scripts
+upgrade_repo_script: delorean-repo.sh.j2
 pre_upgrade_overcloud_script: pre-upgrade-overcloud.sh.j2
 upgrade_script: upgrade-overcloud.sh.j2
 upgrade_non_controller_script: /bin/upgrade-non-controller.sh
+
 upgrade_log: upgrade_console.log
 undercloud_upgrade_user: stack
 # override those lists with your templates that your env needs for upgrade
