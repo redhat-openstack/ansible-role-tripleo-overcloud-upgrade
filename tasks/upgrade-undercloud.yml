@@ -8,6 +8,8 @@
   when: step_upgrade_undercloud
   notify:
     - restart openstack services
+    - create vlan if doesn't exist
+    - set vlan up
 
 - name: Allow traffic for the controller
   sudo: yes
