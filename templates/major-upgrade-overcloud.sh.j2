@@ -2,19 +2,6 @@
 set -eux
 source {{ upgrade_working_dir }}/stackrc
 
-# Workaround for rdo overcloud images
-# This package, which comes with python-tripleoclient do a rsync --delete on
-# /usr/libexec/os-refresh-config and cause the hanging of heat after the yum update
-# on major controller upgrade step 1
-# Just add a basic yum remove before upgrading, and waiting for the fix of the rdo image
-# or https://bugzilla.redhat.com/show_bug.cgi?id=1347652
-{% if target_upgrade_version == 'mitaka' %}
-echo "remove t-i-e package on overcloud"
-for i in $(nova list|grep ctlplane|awk -F' ' '{ print $12 }'|awk -F'=' '{ print $2 }'); do
-    ssh -o StrictHostKeyChecking=no heat-admin@$i "sudo yum remove -y openstack-tripleo-image-elements"
-done
-{% endif %}
-
 echo "execute script delivery"
 openstack overcloud deploy --templates {{ tht_dir }} \
     -e tripleo-heat-templates/overcloud-resource-registry-puppet.yaml \
@@ -85,7 +72,7 @@ openstack overcloud deploy --templates {{ tht_dir }} \
 # Mariadb upgrade:
 # https://review.openstack.org/#/c/325205/
 pushd tripleo-heat-templates
-git fetch https://review.openstack.org/openstack/tripleo-heat-templates refs/changes/05/325205/21 && git checkout FETCH_HEAD
+git fetch https://review.openstack.org/openstack/tripleo-heat-templates refs/changes/05/325205/25 && git checkout FETCH_HEAD
 popd
 {% endif %}
 
