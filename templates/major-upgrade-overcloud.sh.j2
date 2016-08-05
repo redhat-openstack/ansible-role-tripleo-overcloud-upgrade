@@ -4,14 +4,13 @@ set -ux
 onerror(){
 
     echo "Command failed"
-    #if heat stack-list | grep -q '_FAILED'; then
 
         # get the failures list
-        heat resource-list overcloud >> failed_upgrade_list.log || true
+        heat resource-list --nested-depth 5 overcloud | grep -i FAIL >> failed_upgrade_list.log || true
 
         # get any puppet related errors
         for failed in $(heat resource-list \
-            --nested-depth 5 overcloud | grep FAIL |
+            --nested-depth 5 overcloud | grep -i FAIL |
             grep 'StructuredDeployment ' | cut -d '|' -f3)
         do echo -n "heat deployment-show out put for deployment: $failed" >> failed_upgrade.log
            echo -n "######################################################" >> failed_upgrade.log
@@ -22,7 +21,17 @@ onerror(){
            echo -e $(heat deployment-show $failed | jq .output_values.deploy_stderr) >> failed_upgrade.log
            echo -n "######################################################" >> failed_upgrade.log
         done
-    #fi
+
+        if [ -z "$failed" ]; then
+            echo "No StructuredDeployment Errors found" >> failed_upgrade.log
+            echo "Please check os-net-config errors" >> failed_upgrade.log
+            echo "" >> failed_upgrade.log
+            echo "On the overcloud nodes execute:" >> failed_upgrade.log
+            echo "sudo cat /var/log/messages | grep -E 'os-net-config|Trying to ping'" >> failed_upgrade.log
+
+        fi
+
+
 }
 trap onerror ERR
 
