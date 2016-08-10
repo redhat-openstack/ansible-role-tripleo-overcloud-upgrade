@@ -1,0 +1,7 @@
+Code-Review+2: mathieu bultel <mat.bultel@gmail.com>
+Verified+1: mathieu bultel <mat.bultel@gmail.com>
+Submitted-by: mathieu bultel <mat.bultel@gmail.com>
+Submitted-at: Wed, 10 Aug 2016 03:38:16 -0400
+Reviewed-on: https://review.gerrithub.io/286955
+Project: redhat-openstack/ansible-role-tripleo-overcloud-upgrade
+Branch: refs/heads/master
