@@ -1,4 +1,7 @@
 ---
+- name: debug
+  debug: msg=hello
+
 - name: Clean up the repos
   sudo: yes
   file: path=/etc/yum.repos.d/{{ item }} state=absent
