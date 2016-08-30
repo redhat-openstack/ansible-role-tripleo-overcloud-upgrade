@@ -22,6 +22,12 @@ repos_url:
 # upgrade settings:
 upgrade_working_dir: /home/stack
 tht_dir: tripleo-heat-templates
+# Tripleo-heat-templates repo:
+# with type is : git or file
+# Give the opportunity to use the installed tht repo or use the upstream repo
+# with branch
+tht_repo_type: file
+tht_repo: /usr/share/openstack-tripleo-heat-templates
 # scripts
 undercloud_upgrade_script: upgrade-undercloud.sh.j2
 upgrade_undercloud_repo_script: upgrade-repo.sh.j2

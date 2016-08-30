@@ -9,8 +9,15 @@
   file: path={{ upgrade_working_dir }}/{{ tht_dir }} state=absent
 
 - name: Copy new Tht directory to the upgrade working dir
+  when: tht_repo_type == 'file'
   shell: >
-      cp -R /usr/share/openstack-tripleo-heat-templates \
+      cp -R {{ tht_repo }} \
+      {{ upgrade_working_dir }}/{{ tht_dir }};
+
+- name: Copy new Tht directory to the upgrade working dir
+  when: tht_repo_type == 'git'
+  shell: >
+      git clone {{ tht_repo }} \
       {{ upgrade_working_dir }}/{{ tht_dir }};
 
 - name: Add the no ssh finger print checking into upgrade-non-controller.sh
