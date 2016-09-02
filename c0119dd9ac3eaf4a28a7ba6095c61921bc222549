@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "baa041b7_ae77529e",
+        "filename": "templates/major-upgrade-overcloud.sh.j2",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1006607
+      },
+      "writtenOn": "2016-09-02T13:20:06Z",
+      "side": 1,
+      "message": "Too many \u0027\u003d\u0027",
+      "revId": "c0119dd9ac3eaf4a28a7ba6095c61921bc222549",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "baa041b7_ce7296b0",
+        "filename": "templates/minor-upgrade-overcloud.sh.j2",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1006607
+      },
+      "writtenOn": "2016-09-02T13:20:06Z",
+      "side": 1,
+      "message": "Too many \u0027\u003d\u0027",
+      "revId": "c0119dd9ac3eaf4a28a7ba6095c61921bc222549",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "baa041b7_0e4abe55",
+        "filename": "templates/upgrade-undercloud.sh.j2",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1006607
+      },
+      "writtenOn": "2016-09-02T13:20:06Z",
+      "side": 1,
+      "message": "Too many \u0027\u003d\u0027",
+      "revId": "c0119dd9ac3eaf4a28a7ba6095c61921bc222549",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "baa041b7_ee467a4e",
+        "filename": "templates/upgrade-undercloud.sh.j2",
+        "patchSetId": 1
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1006607
+      },
+      "writtenOn": "2016-09-02T13:20:06Z",
+      "side": 1,
+      "message": "Missing `### ---stop_docs`",
+      "revId": "c0119dd9ac3eaf4a28a7ba6095c61921bc222549",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
