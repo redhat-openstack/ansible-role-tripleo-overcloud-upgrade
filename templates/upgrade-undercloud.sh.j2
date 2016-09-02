@@ -1,19 +1,61 @@
 #!/bin/bash
 
 set -eux
-# Undercloud upgrade script.
-# Those steps is for the major mariadb upgrade in mitaka
+
+### --start_docs
+
+{% if mixed_upgrade|bool %}
+
+## During mixed deployments the previous {{ tht_dir }} is to be used for overcloud
+
+## * Make sure no Tht repo is present
+## ::
+
+rm -rf {{ upgrade_working_dir }}/{{ tht_dir }}
+
+## * Copy current Tht directory to the upgrade working dir
+## ::
+
+cp -R /usr/share/openstack-tripleo-heat-templates {{ upgrade_working_dir }}/{{ tht_dir }};
+
+{% endif %}
+
+
+
 {% if target_upgrade_version == 'mitaka' and major_upgrade|bool %}
+
+## * Some services have to be stopped and upgraded by hand
+## ::
+
 sudo systemctl stop openstack-*
 sudo systemctl stop neutron-*
 sudo yum -y update instack-undercloud openstack-puppet-modules openstack-tripleo-common python-tripleoclient
+
 {% endif %}
 {% if target_upgrade_version == 'master' and major_upgrade|bool or mixed_upgrade|bool %}
+
+## Upgrades to master require:
+
+## * First of all python-cachetools has to be manually upgraded
+## ::
+
 sudo yum -y update python-cachetools
+
+## * After that some services have to be stopped and upgraded by hand
+## ::
+
 sudo yum clean all && sudo yum clean metadata && sudo yum clean dbcache && sudo yum makecache
 sudo systemctl stop openstack-*
 sudo systemctl stop neutron-*
 sudo yum -y update
+
 {% endif %}
+
+## * We call the openstack CLI to upgrade the overcloud
+## ::
+
 echo "Upgrade the undercloud"
 openstack undercloud upgrade
+
+### --stop_docs
+
