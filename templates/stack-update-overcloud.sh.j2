@@ -15,7 +15,7 @@ source {{ upgrade_working_dir }}/stackrc
 ## * the upgrade consists on running a series of small scripts on the overcloud
 ## ::
 
-openstack overcloud deploy --templates {{ tht_dir }} \
+openstack update stack --templates {{ tht_dir }} -i overcloud \
     -e tripleo-heat-templates/overcloud-resource-registry-puppet.yaml \
 {% if network_isolation == true %}
     -e {{ tht_dir }}/environments/network-isolation.yaml \
