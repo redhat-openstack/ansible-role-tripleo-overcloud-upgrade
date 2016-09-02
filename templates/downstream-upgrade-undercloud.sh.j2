@@ -32,14 +32,23 @@ sudo systemctl stop neutron-*
 sudo yum -y update instack-undercloud openstack-puppet-modules openstack-tripleo-common python-tripleoclient
 
 {% endif %}
-{% if target_upgrade_version in ['newton', 'master'] and major_upgrade|bool or mixed_upgrade|bool %}
+{% if target_upgrade_version == 'master' and major_upgrade|bool or mixed_upgrade|bool %}
 
 ## Upgrades to master require:
 
-## * First of all python-cachetools has to be manually upgraded
+## You need Red-Hat 7.3, see
+## https://bugzilla.redhat.com/show_bug.cgi?id=1373140
+## ::
+sudo rhos-release -P 10 -r 7.3
+sudo yum-config-manager --disable 'rhelosp-9.0*'
+yum repolist -v enabled
+
+
+## hangs (marios) - [bug-1593182](https://bugs.launchpad.net/tripleo/+bug/1593182)
+## workaround is stop services before the upgrade i.e.
 ## ::
 
-sudo yum -y update python-cachetools
+#sudo yum -y update python-cachetools
 
 ## * After that some services have to be stopped and upgraded by hand
 ## ::
@@ -47,7 +56,21 @@ sudo yum -y update python-cachetools
 sudo yum clean all && sudo yum clean metadata && sudo yum clean dbcache && sudo yum makecache
 sudo systemctl stop openstack-*
 sudo systemctl stop neutron-*
+
+
+## workaround for dashboard not upgrading
+## ::
+sudo rm -rf /usr/share/openstack-dashboard/openstack_dashboard/local/local_settings.d
+
+
+## do rpm the update
+## ::
+
 sudo yum -y update
+
+yum repolist -v enabled
+sudo systemctl list-units 'openstack-*' --all
+
 
 {% endif %}
 
