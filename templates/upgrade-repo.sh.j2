@@ -1,6 +1,19 @@
 #!/bin/bash
+### --start_docs
+
+## * Repo change
+
+## in order to upgrade you replace the following repos ..
+
 pushd /etc/yum.repos.d/
+{% for item in repos %}
+## rm -rf {{ item }}
+{% endfor %}
+
+##     {{repos}}
 {% for item in repos_url %}
     wget {{ item }}
 {% endfor %}
 popd
+### --stop_docs
+
