@@ -1,6 +1,19 @@
 #!/bin/bash
 set -eux
+
+### --start_docs
+
+## Do a minor overcloud upgrade
+## ============================
+
+## * All the next commands are done on the undercloud so we source the stackrc
+## ::
+
 source {{ upgrade_working_dir }}/stackrc
+
+
+## * the upgrade consists on running a series of small scripts on the overcloud
+## ::
 
 openstack overcloud deploy --templates {{ tht_dir }} \
     -e tripleo-heat-templates/overcloud-resource-registry-puppet.yaml \
@@ -13,5 +26,11 @@ openstack overcloud deploy --templates {{ tht_dir }} \
     -e {{ item }} \
 {% endfor %}
 
+## * after that check to see if it worked
+## ::
+
 echo "check upgrade status"
 heat stack-list | grep -i COMPLETE
+
+### --stop_docs
+
