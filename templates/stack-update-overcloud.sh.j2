@@ -11,6 +11,22 @@ set -eux
 
 source {{ upgrade_working_dir }}/stackrc
 
+## * Sometimes mistral actions get lost. We need to repopulate them
+## ::
+
+sudo systemctl restart openstack-mistral-executor
+sudo systemctl restart openstack-mistral-engine
+
+
+## This loads the actions via entrypoints
+## ::
+
+sudo mistral-db-manage populate
+
+## Make sure the new actions got loaded
+## ::
+
+mistral action-list | grep tripleo
 
 ## * The upgrade consists on running a series of small scripts on the overcloud
 ## ::

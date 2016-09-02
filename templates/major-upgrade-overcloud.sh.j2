@@ -1,6 +1,7 @@
 #!/bin/bash
 set -ux
 
+
 onerror(){
     echo "Command failed"
     # get the failures list
@@ -29,42 +30,67 @@ rm -rf /home/stack/tripleo-heat-templates
 git clone https://github.com/openstack/tripleo-heat-templates.git -b stable/newton
 {% endif %}
 
-source {{ upgrade_working_dir }}/stackrc
-{% if target_upgrade_version == 'mitaka' %}
-if heat stack-show overcloud | grep "stack_status " | egrep "(CREATE|UPDATE)_COMPLETE"; then
-    echo "execute aodh upgrade"
-    openstack overcloud deploy --templates {{ tht_dir }} \
-        -e tripleo-heat-templates/overcloud-resource-registry-puppet.yaml \
-    {% if network_isolation == true %}
-        -e {{ tht_dir }}/environments/network-isolation.yaml \
-        -e {{ tht_dir }}/environments/net-single-nic-with-vlans.yaml \
-        -e ~/network-environment.yaml \
-    {% endif %}
-        -e {{ tht_dir }}/environments/puppet-pacemaker.yaml \
-    {% for item in upgrade_custom_templates_controller %}
-        -e {{ item }} \
-    {% endfor %}
-        -e {{ tht_dir }}/environments/major-upgrade-aodh.yaml
-fi
+### --start_docs
 
-if heat stack-show overcloud | grep "stack_status " | egrep "(CREATE|UPDATE)_COMPLETE"; then
-    echo "execute keystone upgrade"
-    openstack overcloud deploy --templates {{ tht_dir }} \
-        -e tripleo-heat-templates/overcloud-resource-registry-puppet.yaml \
-    {% if network_isolation == true %}
-        -e {{ tht_dir }}/environments/network-isolation.yaml \
-        -e {{ tht_dir }}/environments/net-single-nic-with-vlans.yaml \
-        -e ~/network-environment.yaml \
-    {% endif %}
-        -e {{ tht_dir }}/environments/puppet-pacemaker.yaml \
-    {% for item in upgrade_custom_templates_controller %}
-        -e {{ item }} \
-    {% endfor %}
-        -e {{ tht_dir }}/environments/major-upgrade-keystone-liberty-mitaka.yaml
-fi
+## Do a major overcloud upgrade
+## ============================
+
+## * All the next commands are done on the undercloud so we source the stackrc
+## ::
+
+source {{ upgrade_working_dir }}/stackrc
+
+
+{% if target_upgrade_version == 'mitaka' %}
+
+## * If we are upgrading to mitaka we need to execute a aodh upgrade
+## ::
+
+    if heat stack-show overcloud | grep "stack_status " | egrep "(CREATE|UPDATE)_COMPLETE"; then
+        echo "execute aodh upgrade"
+        openstack overcloud deploy --templates {{ tht_dir }} \
+            -e tripleo-heat-templates/overcloud-resource-registry-puppet.yaml \
+        {% if network_isolation == true %}
+            -e {{ tht_dir }}/environments/network-isolation.yaml \
+            -e {{ tht_dir }}/environments/net-single-nic-with-vlans.yaml \
+            -e ~/network-environment.yaml \
+        {% endif %}
+            -e {{ tht_dir }}/environments/puppet-pacemaker.yaml \
+        {% for item in upgrade_custom_templates_controller %}
+            -e {{ item }} \
+        {% endfor %}
+            -e {{ tht_dir }}/environments/major-upgrade-aodh.yaml
+    fi
+
+## * If we are upgrading to mitaka we also need a keystone upgrade
+## ::
+
+    if heat stack-show overcloud | grep "stack_status " | egrep "(CREATE|UPDATE)_COMPLETE"; then
+        echo "execute keystone upgrade"
+        openstack overcloud deploy --templates {{ tht_dir }} \
+            -e tripleo-heat-templates/overcloud-resource-registry-puppet.yaml \
+        {% if network_isolation == true %}
+            -e {{ tht_dir }}/environments/network-isolation.yaml \
+            -e {{ tht_dir }}/environments/net-single-nic-with-vlans.yaml \
+            -e ~/network-environment.yaml \
+        {% endif %}
+            -e {{ tht_dir }}/environments/puppet-pacemaker.yaml \
+        {% for item in upgrade_custom_templates_controller %}
+            -e {{ item }} \
+        {% endfor %}
+            -e {{ tht_dir }}/environments/major-upgrade-keystone-liberty-mitaka.yaml
+    fi
+
 {% endif %}
 
+
+
+
 {% if target_upgrade_version == 'newton' %}
+
+## * Then ceilometer needs to execute a migration on the overcloud nodes
+## ::
+
 if heat stack-show overcloud | grep "stack_status " | egrep "(CREATE|UPDATE)_COMPLETE"; then
     echo "execute ceilometer migration"
     openstack overcloud deploy --templates {{ tht_dir }} \
@@ -81,6 +107,7 @@ if heat stack-show overcloud | grep "stack_status " | egrep "(CREATE|UPDATE)_COM
         -e {{ tht_dir }}/environments/major-upgrade-ceilometer-wsgi-mitaka-newton.yaml
 fi
 {% endif %}
+
 
 
 if heat stack-show overcloud | grep "stack_status " | egrep "(CREATE|UPDATE)_COMPLETE"; then
@@ -108,6 +135,10 @@ if heat stack-show overcloud | grep "stack_status " | egrep "(CREATE|UPDATE)_COM
         {{ upgrade_non_controller_script }} --upgrade  $swift
     done
 fi
+
+
+## * After that we upgrade the controllers first then the non controllers
+## ::
 
 if heat stack-show overcloud | grep "stack_status " | egrep "(CREATE|UPDATE)_COMPLETE"; then
     echo "execute major upgrade controller"
@@ -143,6 +174,9 @@ if heat stack-show overcloud | grep "stack_status " | egrep "(CREATE|UPDATE)_COM
     done
 fi
 
+## * The final step is to run the convergence
+## ::
+
 if heat stack-show overcloud | grep "stack_status " | egrep "(CREATE|UPDATE)_COMPLETE"; then
     echo "execute converge"
     openstack overcloud deploy --templates {{ tht_dir }} \
@@ -159,8 +193,32 @@ if heat stack-show overcloud | grep "stack_status " | egrep "(CREATE|UPDATE)_COM
     {% endif %}
 fi
 
+### --stop_docs
+
+# save configuratiron files for documentation
+
+echo "### --start_docs" > custom-templates.sh
+echo "" >> custom-templates.sh
+
+{% for item in upgrade_custom_templates_script_delivery %}
+    echo "## * {{ item }} ::" >> custom-templates.sh
+    echo "" >> custom-templates.sh
+    cat {{ item }}  >> custom-templates.sh
+    echo "" >> custom-templates.sh
+{% endfor %}
+{% for item in upgrade_custom_templates_controller %}
+    echo "## * {{ item }} ::" >> custom-templates.sh
+    echo "" >> custom-templates.sh
+    cat {{ item }}  >> custom-templates.sh
+    echo "" >> custom-templates.sh
+{% endfor %}
+
+echo "### --stop_docs" >> custom-templates.sh
+
 if heat stack-show overcloud | grep "stack_status " | egrep "(CREATE|UPDATE)_COMPLETE"; then
     echo "Update successful"
 else
     exit 1
 fi
+
+
