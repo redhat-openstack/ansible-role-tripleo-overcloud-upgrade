@@ -21,6 +21,15 @@ onerror(){
 }
 trap onerror ERR
 
+mv tripleo-heat-templates tripleo-heat-templates.org
+git clone https://github.com/openstack/tripleo-heat-templates.git
+
+pushd tripleo-heat-templates
+git config user.email "mat.bultel@gmail.com"
+git config user.name "matbu"
+git fetch https://review.openstack.org/openstack/tripleo-heat-templates refs/changes/26/358626/10 && git checkout FETCH_HEAD
+popd
+
 source {{ upgrade_working_dir }}/stackrc
 if heat stack-show overcloud | grep "stack_status " | egrep "(CREATE|UPDATE)_COMPLETE"; then
     echo "execute aodh upgrade"
