@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "baa041b7_59d7554f",
+        "filename": "playbooks/upgrade-baremetal.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000779
+      },
+      "writtenOn": "2016-09-12T14:21:27Z",
+      "side": 1,
+      "message": "undercloud_type for this playbook is \u0027virt\u0027.\nIt\u0027s a virt undercloud and a baremetal overcloud.",
+      "revId": "a52e69888bdab1a15733cdfca91df59a83cd5721",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
