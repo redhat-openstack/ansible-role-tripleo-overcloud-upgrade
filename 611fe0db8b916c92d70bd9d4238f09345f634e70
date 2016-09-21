@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "baa041b7_9b5ff174",
+        "filename": "templates/upgrade-repo.sh.j2",
+        "patchSetId": 4
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1006607
+      },
+      "writtenOn": "2016-09-21T19:20:25Z",
+      "side": 1,
+      "message": "If you want this to be executed in the shell script the \u0027##\u0027 need to be removed",
+      "revId": "611fe0db8b916c92d70bd9d4238f09345f634e70",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "baa041b7_7b62ed3e",
+        "filename": "templates/upgrade-repo.sh.j2",
+        "patchSetId": 4
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1006607
+      },
+      "writtenOn": "2016-09-21T19:20:25Z",
+      "side": 1,
+      "message": "What\u0027s this?",
+      "revId": "611fe0db8b916c92d70bd9d4238f09345f634e70",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
