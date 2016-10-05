@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "baa041b7_e67e36e2",
+        "filename": "doc/running-upgrade.rst",
+        "patchSetId": 5
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1006607
+      },
+      "writtenOn": "2016-10-05T15:23:45Z",
+      "side": 1,
+      "message": "I\u0027m not sure that this file will be needed. The standard we have set is not to create docs like this but rather to create the structure within the artcl_create_docs_payload dict inside the config that will be used during deployment[1]",
+      "revId": "349077fe66c0c3c4a32ee8af73af73ad84acf099",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
