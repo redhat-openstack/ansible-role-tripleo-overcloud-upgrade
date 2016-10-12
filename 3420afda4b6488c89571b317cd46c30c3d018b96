@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "baa041b7_8b1639a5",
+        "filename": "templates/stack-update-overcloud.sh.j2",
+        "patchSetId": 7
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1006607
+      },
+      "writtenOn": "2016-10-12T19:34:51Z",
+      "side": 1,
+      "message": "s/the/The",
+      "revId": "3420afda4b6488c89571b317cd46c30c3d018b96",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "baa041b7_6b09b583",
+        "filename": "templates/stack-update-overcloud.sh.j2",
+        "patchSetId": 7
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1006607
+      },
+      "writtenOn": "2016-10-12T19:34:51Z",
+      "side": 1,
+      "message": "s/after/After",
+      "revId": "3420afda4b6488c89571b317cd46c30c3d018b96",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
