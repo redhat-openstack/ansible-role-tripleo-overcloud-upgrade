@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "baa041b7_62fe726b",
+        "filename": "templates/major-upgrade-overcloud.sh.j2",
+        "patchSetId": 8
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1006607
+      },
+      "writtenOn": "2016-10-13T19:50:12Z",
+      "side": 1,
+      "message": "To make this an rST note --\n\n## .. note:: tripleo-heat-templates ...\n      next line starts at same indent\n      and so on",
+      "revId": "9f0c906da165624e9b2505eeaac884c0055f2045",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "baa041b7_42fa4e76",
+        "filename": "templates/major-upgrade-overcloud.sh.j2",
+        "patchSetId": 8
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1006607
+      },
+      "writtenOn": "2016-10-13T19:50:12Z",
+      "side": 1,
+      "message": "## It is simpler",
+      "revId": "9f0c906da165624e9b2505eeaac884c0055f2045",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
