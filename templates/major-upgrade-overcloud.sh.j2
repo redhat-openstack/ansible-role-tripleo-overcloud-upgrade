@@ -79,11 +79,15 @@ if heat stack-show overcloud | grep "stack_status " | egrep "(CREATE|UPDATE)_COM
         -e {{ item }} \
     {% endfor %}
 
+fi
+if heat stack-show overcloud | grep "stack_status " | egrep "(CREATE|UPDATE)_COMPLETE"; then
+
     echo "get ceph uuid and update swift"
     for swift in $(nova list | grep swift  | awk '{ print $2; }'); do
         echo "Run upgrade on $swift"
         {{ upgrade_non_controller_script }} --upgrade  $swift
     done
+
 fi
 
 if heat stack-show overcloud | grep "stack_status " | egrep "(CREATE|UPDATE)_COMPLETE"; then
@@ -101,11 +105,19 @@ if heat stack-show overcloud | grep "stack_status " | egrep "(CREATE|UPDATE)_COM
     {% endfor %}
         -e {{ tht_dir }}/environments/major-upgrade-pacemaker.yaml
 
+
+fi
+if heat stack-show overcloud | grep "stack_status " | egrep "(CREATE|UPDATE)_COMPLETE"; then
+
     echo "get compute uuid and update compute"
     for compute in $(nova list | grep compute  | awk '{ print $2; }'); do
         echo "Run upgrade on $compute"
         {{ upgrade_non_controller_script }} --upgrade  $compute
     done
+
+
+fi
+if heat stack-show overcloud | grep "stack_status " | egrep "(CREATE|UPDATE)_COMPLETE"; then
 
     echo "get ceph uuid and update ceph"
     for ceph in $(nova list | grep cephstorage  | awk '{ print $2; }'); do
