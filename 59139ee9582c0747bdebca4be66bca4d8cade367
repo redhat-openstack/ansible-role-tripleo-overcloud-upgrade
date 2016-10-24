@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "baa041b7_df6cd008",
+        "filename": "templates/minor-upgrade-overcloud.sh.j2",
+        "patchSetId": 9
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1006607
+      },
+      "writtenOn": "2016-10-24T13:20:56Z",
+      "side": 1,
+      "message": "(nit): s/t/T",
+      "revId": "59139ee9582c0747bdebca4be66bca4d8cade367",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "baa041b7_1f67d825",
+        "filename": "templates/minor-upgrade-overcloud.sh.j2",
+        "patchSetId": 9
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1006607
+      },
+      "writtenOn": "2016-10-24T13:20:56Z",
+      "side": 1,
+      "message": "(nit): s/a/A/",
+      "revId": "59139ee9582c0747bdebca4be66bca4d8cade367",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
