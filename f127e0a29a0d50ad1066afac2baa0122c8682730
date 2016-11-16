@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "baa041b7_940c7f3a",
+        "filename": "tasks/pre-undercloud.yml",
+        "patchSetId": 11
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1005220
+      },
+      "writtenOn": "2016-11-16T15:52:49Z",
+      "side": 1,
+      "message": "why removing this part ?\nIt\u0027s a review related to the doc, removing functional steps is out of order.",
+      "revId": "f127e0a29a0d50ad1066afac2baa0122c8682730",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "baa041b7_342493b0",
+        "filename": "templates/downstream-upgrade-undercloud.sh.j2",
+        "patchSetId": 11
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1005220
+      },
+      "writtenOn": "2016-11-16T15:52:49Z",
+      "side": 1,
+      "message": "This file shouldn\u0027t exist in the upstream role.\nThere is already downstream scripts and heat-templates in the redhat internal repo.\nPlease remove it.",
+      "revId": "f127e0a29a0d50ad1066afac2baa0122c8682730",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "baa041b7_d420c79c",
+        "filename": "templates/major-upgrade-overcloud.sh.j2",
+        "patchSetId": 11
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1005220
+      },
+      "writtenOn": "2016-11-16T15:52:49Z",
+      "side": 1,
+      "message": "I think we need to identify a bit more from which version to which version the steps are needed.\nBtw, I think adding the doc from tripleo-docs would be better. (i mean explanation and potential warning or note)\nI don\u0027t know exactly if the goal with this is to override tripleo-docs, if not, it will diverge and become 2 different sources of informations",
+      "revId": "f127e0a29a0d50ad1066afac2baa0122c8682730",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "baa041b7_712d8da7",
+        "filename": "templates/major-upgrade-overcloud.sh.j2",
+        "patchSetId": 11
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 1005220
+      },
+      "writtenOn": "2016-11-16T15:52:49Z",
+      "side": 1,
+      "message": "Do we really need this piece of jinja code ?",
+      "revId": "f127e0a29a0d50ad1066afac2baa0122c8682730",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "baa041b7_b438a3d5",
+        "filename": "templates/stack-update-overcloud.sh.j2",
+        "patchSetId": 11
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1005220
+      },
+      "writtenOn": "2016-11-16T15:52:49Z",
+      "side": 1,
+      "message": "why adding a new script for minor upgrade ?\nAFAIU this is unused ?",
+      "revId": "f127e0a29a0d50ad1066afac2baa0122c8682730",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
