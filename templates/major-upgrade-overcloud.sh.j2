@@ -152,6 +152,9 @@ if heat stack-show overcloud | grep "stack_status " | egrep "(CREATE|UPDATE)_COM
         -e tripleo-heat-templates/overcloud-resource-registry-puppet.yaml \
         -e tripleo-heat-templates/environments/puppet-pacemaker.yaml \
         -e tripleo-heat-templates/environments/major-upgrade-pacemaker-converge.yaml \
+    {% if target_upgrade_version == 'newton' %}
+        -e tripleo-heat-templates/environments/major-upgrade-remove-sahara.yaml \
+    {% endif %}
     {% for item in upgrade_custom_templates_converge %}
         -e {{ item }} \
     {% endfor %}
