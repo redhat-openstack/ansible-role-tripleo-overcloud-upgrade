@@ -81,4 +81,5 @@ update_heat_stack_template: update-dnsserver.yaml
 # TBR:
 libvirt_uri: qemu:///session
 undercloud_workers: 4
+undercloud_swift_workers: 6
 undercloud_heat_workers: 7
