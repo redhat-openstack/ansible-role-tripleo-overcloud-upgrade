@@ -21,11 +21,6 @@
   sudo: yes
   shell: yum clean all
 
-- name: Push hieradata override file for workers
-  template:
-    src: "quickstart-hieradata-overrides.yaml.j2"
-    dest: "{{ upgrade_working_dir }}/quickstart-hieradata-overrides.yaml"
-
 - name: Create undercloud upgrade script
   template:
     src: "{{ undercloud_upgrade_script }}"
@@ -41,3 +36,24 @@
   shell: >
       cp -R /usr/share/openstack-tripleo-heat-templates \
       {{ upgrade_working_dir }}/{{ tht_dir }};
+
+- name: get the number of core
+  when: set_heat_workers
+  register: core
+  shell: >
+    cat /proc/cpuinfo | grep processor | wc -l
+
+- name: set the number of workers for heat engine before runnning OC upgrade
+  when: set_heat_workers
+  set_fact:
+    undercloud_workers="{{ core.stdout|int }}"
+
+- name: set the number of workers for heat engine before runnning OC upgrade
+  when: set_heat_workers
+  set_fact:
+    undercloud_heat_workers="{{ core.stdout|int - 2 }}"
+
+- name: Push hieradata override file for workers
+  template:
+    src: "quickstart-hieradata-overrides.yaml.j2"
+    dest: "{{ upgrade_working_dir }}/quickstart-hieradata-overrides.yaml"
